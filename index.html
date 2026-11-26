@@ -153,6 +153,7 @@ footer { border-top:1px solid var(--line); }
 .footer { min-height:4.6rem; display:flex; align-items:center; justify-content:space-between; gap:.6rem; font-weight:650; }
 
 dialog { width:min(46rem,calc(100% - 1.6rem)); max-height:min(91dvh,51rem); padding:0; border:1.5px solid #889a7d; border-radius:1.05rem; background:#fffdf2; color:var(--ink); box-shadow:0 1rem 4rem #14261ba0; }
+dialog[data-kind="score"] { width:min(53rem,calc(100% - 1.6rem)); }
 dialog[open] { animation:dialog-in .24s ease-out; }
 dialog::backdrop { background:#18312788; }
 .dialog-inner { padding:1.2rem 1.4rem; }
@@ -182,12 +183,53 @@ dialog::backdrop { background:#18312788; }
 .dialog-actions { display:flex; justify-content:space-between; align-items:center; gap:.7rem; padding-top:.48rem; }
 .dialog-actions span { color:#766148; font-size:.86rem; font-weight:620; }
 .settle-head { display:grid; grid-template-columns:1fr minmax(3.3rem,25%); align-items:center; gap:.48rem; }
-.score { display:flex; align-items:baseline; gap:.3rem; color:var(--deep); border-top:1px solid #dde2d0; margin-top:.5rem; padding:.35rem 0; }
-.score strong { font:800 clamp(3rem,8vw,5rem)/1 Arial,sans-serif; }
-.score span { font-size:1.23rem; font-weight:730; }
-.settle-note { color:#4c6250; }
-.score-parts { list-style:none; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.35rem .7rem; margin:.6rem 0; }
-.score-parts li { display:flex; align-items:center; justify-content:space-between; padding:.35rem .56rem; background:#edf1e2; border-radius:.36rem; font-size:.94rem; }
+.result-kicker { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; column-gap:.48rem; }
+.result-jump { display:inline-flex; align-items:center; gap:.25rem; min-height:2.75rem; padding:0; background:none; border:0; color:#285643; font-size:.95rem; font-weight:740; text-decoration:underline; text-underline-offset:.18em; }
+.result-summary { display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"score note" "score points"; align-items:center; gap:.25rem 1.15rem; padding:.8rem 1rem; background:#eff2e4; border:1px solid #d7dfcd; border-radius:.85rem; }
+.score { grid-area:score; display:grid; place-items:center; width:clamp(5.2rem,13vw,7.85rem); aspect-ratio:1; padding:.38rem; border-radius:50%; background:conic-gradient(#507453 var(--score-fill),#d5dfcd 0); color:var(--deep); }
+.score > div { display:grid; align-content:center; justify-items:center; width:100%; height:100%; background:#fcf9ed; border-radius:50%; }
+.score strong { font:800 clamp(1.8rem,5.5vw,3.1rem)/1 var(--font); font-variant-numeric:tabular-nums; }
+.score span { font-size:1rem; font-weight:730; }
+.settle-note { grid-area:note; color:#4c6250; align-self:end; }
+.score-parts { grid-area:points; align-self:start; list-style:none; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.3rem .45rem; margin:0; }
+.score-parts li { display:flex; align-items:center; justify-content:space-between; gap:.25rem .45rem; padding:.22rem .48rem; background:#fffdf4; border:1px solid #e0e6d5; border-radius:.4rem; font-size:.94rem; }
+.score-parts b { white-space:nowrap; }
+.result-notebook { margin:.5rem 0 1.05rem; border-bottom:1px solid #e5e1d3; }
+.result-learning { display:grid; gap:.72rem; }
+.result-learning h3 { font-size:clamp(1.42rem,3.5vw,1.82rem); line-height:1.22; scroll-margin-top:.7rem; }
+.result-lesson-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.72rem; }
+.review-card { min-width:0; padding:clamp(.72rem,2.4vw,1.15rem); border:1px solid #e2d9c5; border-radius:.85rem; background:#fff9ec; }
+.review-card h4 { margin:.1rem 0 .38rem; color:var(--deep); font-size:clamp(1.16rem,2.9vw,1.38rem); line-height:1.23; }
+.review-card p { line-height:1.55; }
+.review-card .review-topic { color:#785629; font-size:.89rem; font-weight:780; }
+.portion-review-heading { display:flex; align-items:center; justify-content:space-between; gap:.65rem; margin-bottom:.24rem; }
+.portion-review .fruit-art { width:5.55rem; height:3.72rem; border:1px solid #e4d1a6; background:#f4e3bd; }
+.portion-chart { display:grid; gap:.5rem; margin:.58rem 0; }
+.portion-chart-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.18rem .55rem; align-items:baseline; }
+.portion-chart-row dt,.portion-chart-row dd { margin:0; }
+.portion-chart-row dt span { color:#4f5d4f; font-size:.92rem; }
+.portion-chart-row dd { white-space:nowrap; font-variant-numeric:tabular-nums; }
+.portion-chart-row .portion-label-chip { display:inline-block; margin-inline-start:.2rem; padding:0 .38rem; border-radius:.35rem; color:#264f36; font-size:.84rem; font-weight:750; background:#e2efdb; }
+.portion-chart-row::after { content:""; grid-column:1/-1; border-radius:1rem; height:.6rem; background:linear-gradient(to right,var(--portion-colour,#997041) var(--portion-fill),#eee4cb 0); }
+.portion-chart-row:has(.portion-label-chip) { --portion-colour:#527553; }
+.review-takeaway { color:#403c29; }
+.study-review { border-color:#d2deca; background:#f0f5e9; }
+.study-review .review-topic { color:#405f46; }
+.study-figures { display:grid; grid-template-columns:1fr 1fr; gap:.45rem; margin:.6rem 0; }
+.study-figures div { padding:.54rem .47rem; background:#fdfef7; border:1px solid #d3e0cd; border-radius:.55rem; }
+.study-figures dt { line-height:1.25; }
+.study-figures dd { margin:0; color:#264b34; font-size:2rem; font-weight:800; line-height:1.21; font-variant-numeric:tabular-nums; }
+.label-review { border-color:#e4d2bc; background:#fcf3e6; }
+.practice-label { border:1px solid #b9ad92; border-radius:.35rem; padding:.32rem .55rem; margin:.56rem 0; background:#fffdf6; font-variant-numeric:tabular-nums; }
+.practice-label div { display:flex; align-items:baseline; justify-content:space-between; gap:.45rem; padding:.08rem 0; }
+.practice-label div+div { border-top:1px solid #dcd4c3; }
+.practice-label .practice-label-heading { font-weight:780; }
+.practice-label dd { margin:0; white-space:nowrap; }
+.label-answers { display:flex; flex-wrap:wrap; gap:.42rem; margin-top:.4rem; }
+.label-answers button { flex:1; min-width:3.65rem; min-height:2.75rem; }
+.label-feedback:not(:empty) { margin-top:.44rem; padding:.36rem .55rem; background:#edf1e2; border-left:3px solid #66846a; border-radius:.3rem; color:#294833; }
+.result-context { color:#4c5c4d; font-size:.95rem; line-height:1.5; }
+.result-context a { font-weight:700; }
 .log-list { margin:.2rem 0 .56rem; padding:0; list-style:none; }
 .log-list li { padding:.3rem .12rem; display:grid; grid-template-columns:3.6rem 1fr; border-bottom:1px solid var(--line); gap:0 .3rem; }
 .log-list small { grid-column:2; }
@@ -389,7 +431,7 @@ dialog::backdrop { background:#18312788; }
 .meal-receipt dt { color:var(--muted); font-size:.97rem; }
 .meal-receipt dd { margin:0; font-size:1.25rem; font-weight:760; color:var(--deep); line-height:1.3; }
 .meal-actions { justify-content:flex-end; }
-.result-actions { flex-wrap:wrap; }
+.result-actions { position:sticky; z-index:1; bottom:-1px; flex-wrap:wrap; background:#fffdf2; border-top:1px solid #e6dfca; margin:.85rem -1.4rem -1.2rem; padding:.56rem 1.4rem .65rem; }
 .decision-dock { margin-top:.55rem; }
 .fruit-card .fruit-meta strong { overflow-wrap:normal; }
 @media(max-width:820px) {
@@ -407,6 +449,10 @@ dialog::backdrop { background:#18312788; }
   .meal-receipt dt { font-size:.81rem; line-height:1.2; }
   .meal-receipt dd { font-size:1.02rem; }
   .game-controls .primary,.game-controls .subtle-button { font-size:.93rem; padding-inline:.6rem; }
+  .result-summary { grid-template-areas:"score note" "points points"; gap:.54rem .65rem; padding:.62rem; }
+  .settle-note { align-self:center; }
+  .result-lesson-grid { grid-template-columns:1fr; }
+  .result-actions { margin-inline:-.8rem; margin-bottom:-.88rem; padding:.52rem .8rem .58rem; }
 }
 @media(max-width:400px) {
   .fruit-options { grid-template-columns:1fr; gap:.36rem; }
@@ -570,6 +616,9 @@ dialog::backdrop { background:#18312788; }
     taste: ['Taste study · Glucose, fructose and sucrose','https://pubmed.ncbi.nlm.nih.gov/31168584/'],
     acid: ['University of Missouri · Apple varieties and flavour','https://extension.missouri.edu/publications/g6022'],
     gl: ['University of Sydney · What GI and GL measure','https://glycemicindex.com/about-gi/'],
+    fruitForm: ['Tey et al. · Fruit form and blood glucose','https://pubmed.ncbi.nlm.nih.gov/28972240/'],
+    nutritionLabel: ['Hong Kong Centre for Food Safety · Reading nutrition labels','https://www.cfs.gov.hk/english/consumer_zone/safefood_all/food_nutrition_labelling.html'],
+    mealPlan: ['CDC · Diabetes meal planning','https://www.cdc.gov/diabetes/healthy-eating/diabetes-meal-planning.html'],
     types: ['World Health Organization · Common sugars','https://cdn.who.int/media/docs/librariesprovider2/euro-health-topics/obesity/sugars-factsheet.pdf']
   };
   const originalFruits = [
@@ -1471,18 +1520,100 @@ dialog::backdrop { background:#18312788; }
   }
   function showScore(score,ending){
     const stops=day.fruitEaten+' fruit '+(day.fruitEaten===1?'choice':'choices')+' logged.';
-    const summary=day.reason?stops:'Lights out at 22:15. Up again at 06:00. '+stops;
+    const summary=day.reason?'The round ended early. '+stops:'Lights out at 22:15. '+stops;
     const entries=day.log.map(item=>'<li><time>'+time(item.time)+'</time><span>'+escape(item.label)+'</span><small>'+escape(formatDelta(item))+'</small></li>').join('');
     const rows=[['Day completed',score.dayPoints+' / 25'],['Happiness',score.joyPoints+' / 40'],['Budget',score.budgetPoints+' / 15'],['Food choices',score.lightPoints+' / 20']];
     if(score.adjustment)rows.push(['Early finish adjustment','−'+score.adjustment]);
-    dialogBody.innerHTML='<div class="portrait-header settle-head"><div><p class="dialog-overline">Day score</p><h2 tabindex="-1" id="dialog-title">'+ending.title+'</h2><blockquote>“'+ending.line+'”</blockquote></div>'+reactionPortrait(ending.mood,moodReaction[ending.mood],ending.mood==='proud')+'</div><div class="score"><strong>'+score.total+'</strong><span>/ 100</span></div><p class="settle-note">'+summary+'</p><ul class="score-parts">'+rows.map(([label,points])=>'<li>'+label+' <b>'+points+'</b></li>').join('')+'</ul><details class="fruit-source"><summary>Read today’s notebook</summary><ol class="log-list">'+entries+'</ol></details><div class="dialog-actions result-actions"><button type="button" class="subtle-button" data-cmd="restart">Play again</button><button type="button" class="primary" data-cmd="learn">Review fruit choices</button></div>';
+    dialogBody.innerHTML=`
+      <div class="portrait-header settle-head">
+        <div>
+          <div class="result-kicker"><p class="dialog-overline">Day score</p><button type="button" class="result-jump" data-cmd="takeaways">Takeaways <span aria-hidden="true">↓</span></button></div>
+          <h2 tabindex="-1" id="dialog-title">${ending.title}</h2><blockquote>“${ending.line}”</blockquote>
+        </div>
+        ${reactionPortrait(ending.mood,moodReaction[ending.mood],ending.mood==='proud')}
+      </div>
+      <div class="result-summary">
+        <div class="score" style="--score-fill:${score.total}%"><div><strong>${score.total}</strong><span> / 100</span></div></div>
+        <p class="settle-note">${summary}</p>
+        <ul class="score-parts">${rows.map(([label,points])=>'<li>'+label+' <b>'+points+'</b></li>').join('')}</ul>
+      </div>
+      <details class="fruit-source result-notebook"><summary>Read today’s notebook</summary><ol class="log-list">${entries}</ol></details>
+      ${endLessons(day.log.findLast(item=>item.kind==='fruit'))}
+      <div class="dialog-actions result-actions"><button type="button" class="subtle-button" data-cmd="restart">Play again</button><button type="button" class="primary" data-cmd="learn">Fruit guide</button></div>`;
     openPopup('score');
   }
+
+  function endLessons(choice){
+    const fruit=fruitById(choice?.fruitId || 'orange');
+    const portion=choice?.portion || fruit.portions[1];
+    const index=fruit.portions.indexOf(portion);
+    const other=fruit.portions[choice?(index===0?1:index-1):2];
+    const portions=[portion,other].sort((a,b)=>a.grams-b.grams);
+    const carbs=portions.map(serving=>engine.estimate(fruit,serving.grams).carbs);
+    const source=fruit.source==='cfs'?'Hong Kong Centre for Food Safety':'USDA food composition';
+    return `
+      <section class="result-learning" aria-labelledby="result-learning-title">
+        <h3 id="result-learning-title" tabindex="-1">Takeaways from today</h3>
+        <article class="review-card portion-review">
+          <div class="portion-review-heading">
+            <div><p class="review-topic">${choice?'Your last fruit choice · '+time(choice.time):'An example with an orange'}</p>
+              <h4>One fruit, two portions</h4></div>
+            ${art(fruit)}
+          </div>
+          <p>${choice?'Estimated total carbohydrate in two portions of '+escape(fruit.name.toLowerCase())+'.':'You skipped the fruit stops you reached. These orange portions show how much total carbohydrate a portion can contain.'}</p>
+          <dl class="portion-chart" aria-label="Estimated total carbohydrate for two portions of ${escape(fruit.name)}">
+            ${portions.map((serving,i)=>`
+              <div class="portion-chart-row"
+                style="--portion-fill:${carbs[i]/Math.max(...carbs)*100}%">
+                <dt><strong>${escape(serving.label)}</strong> <span>(about ${num(serving.grams)} g)</span>
+                  ${choice && serving===portion?'<span class="portion-label-chip">You chose this</span>':''}</dt>
+                <dd><strong>${num(carbs[i])} g</strong></dd>
+              </div>`).join('')}
+          </dl>
+          <p class="review-takeaway">The larger portion contains about <strong>${num(carbs[1]-carbs[0])} g more total carbohydrate</strong>. The weight of a real piece can vary.</p>
+          <div class="inline-sources">${link(fruit.source,source)}${link('ada','ADA guide to fruit portions')}</div>
+        </article>
+        <div class="result-lesson-grid">
+          <article class="review-card study-review">
+            <p class="review-topic">A small Singapore study</p>
+            <h4>Guava in bites or puréed</h4>
+            <p>Researchers gave the same amount of digestible carbohydrate in each form. Among nine older adults without diabetes, the average glycaemic index (GI) differed by preparation.</p>
+            <dl class="study-figures">
+              <div><dt>Bite-size pieces</dt><dd>31</dd></div>
+              <div><dt>Guava purée</dt><dd>49</dd></div>
+            </dl>
+            <p>Both values were in the low-GI range. The numbers describe the portions tested in this study.</p>
+            <div class="inline-sources">${link('fruitForm','Read the study')}${link('gl','University of Sydney · GI')}</div>
+          </article>
+          <article class="review-card label-review" aria-labelledby="label-quiz-title">
+            <p class="review-topic">Try it yourself</p>
+            <h4 id="label-quiz-title">Read a fruit cup label</h4>
+            <dl class="practice-label" aria-label="Practice nutrition label per serving">
+              <div class="practice-label-heading"><dt>Practice label</dt><dd>Per serving</dd></div>
+              <div><dt>Carbohydrates</dt><dd>12 g</dd></div>
+              <div><dt>Sugars</dt><dd>8 g</dd></div>
+            </dl>
+            <p id="label-question">If you eat two servings, how much carbohydrate is that?</p>
+            <div class="label-answers" role="group" aria-labelledby="label-question">
+              ${[12,16,24].map(value=>`<button class="subtle-button" type="button" data-label-answer="${value}" aria-pressed="false">${value} g</button>`).join('')}
+            </div>
+            <p id="label-feedback" class="label-feedback" role="status"></p>
+            <div class="inline-sources">${link('nutritionLabel','Hong Kong Centre for Food Safety')}${link('cdc','CDC · Counting carbs')}</div>
+          </article>
+        </div>
+        <p class="result-context">Carb points are part of this game. When planning your own meals, the amount that suits you depends on your needs and any medicines you take. ${link('mealPlan','CDC · Meal planning')}</p>
+      </section>`;
+  }
+
   function prepareReview(){
     const last=day.log.findLast(item=>item.kind==='fruit');
     const panel=$('round-review');
     panel.hidden=false;
     if(!last){
+      setComparison('a','orange');
+      setComparison('b','grape');
+      renderComparison('a');
+      renderComparison('b');
       panel.innerHTML='<h3 id="round-review-title">From this round</h3><p>You didn’t log a fruit choice. Try comparing half an orange with ten grapes to see how two portions can differ.</p><div class="inline-sources">'+link('ada','Fruit and diabetes')+'</div>';
       return;
     }
@@ -1609,11 +1740,25 @@ dialog::backdrop { background:#18312788; }
   dialog.addEventListener('click',event=>{
     const button=event.target.closest('button');
     if(!button)return;
+    if(button.dataset.labelAnswer){
+      for(const answer of dialog.querySelectorAll('[data-label-answer]')){
+        answer.setAttribute('aria-pressed',String(answer===button));
+      }
+      $('label-feedback').textContent=button.dataset.labelAnswer==='24'
+        ? 'That’s right. Two servings contain 24 g of carbohydrate. The sugars are part of that total.'
+        : 'Try the Carbohydrates row. There are 12 g in one serving. Double it for two.';
+      return;
+    }
     if(button.dataset.choice)chooseCard(button.dataset.choice);
     if(button.hasAttribute('data-portion')&&selected){selectedPortion=selected.portions[Number(button.dataset.portion)];refreshPortion();}
     if(button.dataset.cmd==='continue-meal')continueMeal();
     if(button.dataset.cmd==='buy')answer(true);
     if(button.dataset.cmd==='skip')answer(false);
+    if(button.dataset.cmd==='takeaways'){
+      const title=$('result-learning-title');
+      title.focus({preventScroll:true});
+      title.scrollIntoView({block:'start',behavior:'instant'});
+    }
     if(button.dataset.cmd==='restart'){closePopup(false);reset();$('clock').focus();}
     if(button.dataset.cmd==='learn'){
       prepareReview();
